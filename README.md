@@ -19,13 +19,13 @@ marraqueta-badu/
 ├── css/styles.css
 ├── js/juego.js     ← lógica del minijuego
 ├── js/main.js      ← animaciones de la página
-└── img/marraqueta-badu.jpg   ← la evidencia fotográfica
+└── img/marraqueta-badu.png   ← la evidencia fotográfica
 ```
 
 ## La foto
 
-Guarda la foto original del horno como `img/marraqueta-badu.jpg`.
-Si el archivo no existe, la página muestra un marcador en su lugar y no se rompe.
+La foto original del horno vive en `img/marraqueta-badu.png`.
+Si el archivo falta, la página muestra un marcador en su lugar y no se rompe.
 
 ## Correr en local
 
