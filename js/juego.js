@@ -399,6 +399,23 @@
     try { localStorage.setItem(KEY, String(v)); } catch (e) { /* no-op */ }
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  /* Si el jugador cambia de pestaña a mitad de partida, se corta el bucle y se
+     vuelve al inicio: si no, la corrida seguiría avanzando sin que pueda verla. */
+  function registrar() {
+    if (!window.Arcade) return;
+    window.Arcade.register('simulador', {
+      onHide: function () {
+        if (!isPlaying()) return;
+        S.running = false;
+        S.held = false;
+        el.hudScore.textContent = '0';
+        show('intro');
+      }
+    });
+  }
+
+  function arrancar() { init(); registrar(); }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arrancar);
+  else arrancar();
 })();

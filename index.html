@@ -27,7 +27,7 @@
   <nav class="nav__links">
     <a href="#historia">Historia</a>
     <a href="#receta">Receta</a>
-    <a href="#juego" class="nav__cta">Jugar</a>
+    <a href="#juego" class="nav__cta">Juegos</a>
   </nav>
 </header>
 
@@ -242,9 +242,27 @@
 <!-- ═══════════════ JUEGO ═══════════════ -->
 <section id="juego" class="section">
   <div class="wrap">
-    <p class="eyebrow">Modo carrera</p>
-    <h2 class="section__title">Simulador de Marraqueta 3000</h2>
+    <p class="eyebrow">Zona de juegos</p>
+    <h2 class="section__title">Tres formas de fracasar con un pan</h2>
     <p class="section__lead">
+      Elige tu tragedia. <span class="muted">Cada juego guarda tu progreso en este navegador.</span>
+    </p>
+
+    <div class="arcade__tabs" role="tablist" aria-label="Juegos">
+      <button class="arcade__tab is-active" role="tab" data-game="simulador" aria-selected="true">
+        <b>Simulador 3000</b><i>Amasa, marca y hornea</i>
+      </button>
+      <button class="arcade__tab" role="tab" data-game="libera" aria-selected="false" tabindex="-1">
+        <b>Libera a los panes</b><i>Puzzle de cortes</i>
+      </button>
+      <button class="arcade__tab" role="tab" data-game="tycoon" aria-selected="false" tabindex="-1">
+        <b>Marraqueta Tycoon</b><i>Arma tu panadería</i>
+      </button>
+    </div>
+
+    <!-- ─── Juego 1 · Simulador ─── -->
+    <div class="arcade__panel is-active" data-panel="simulador">
+    <p class="arcade__intro">
       Tres etapas. Un solo intento por corrida. ¿Le ganas a Badu?
       <span class="muted">Usa <kbd>Espacio</kbd> o toca la pantalla.</span>
     </p>
@@ -352,6 +370,87 @@
 
       </div>
     </div>
+    </div><!-- /panel simulador -->
+
+    <!-- ─── Juego 2 · Libera a los panes ─── -->
+    <div class="arcade__panel" data-panel="libera">
+      <p class="arcade__intro">
+        Badu los dejó pegados. Tú los sueltas.
+        <span class="muted">Arrastra para trazar un corte: la línea parte todo lo que cruza.</span>
+      </p>
+
+      <div class="game libera">
+        <div class="game__hud">
+          <div class="hud__stage" id="lbLevelName">Nivel 1</div>
+          <div class="hud__scores">
+            <span>Cortes <b id="lbCuts">0</b><span class="muted"> / par <span id="lbPar">1</span></span></span>
+            <span class="muted">Heridos <b id="lbHurt">0</b></span>
+            <span class="muted">Nivel <b id="lbProgress">1/5</b></span>
+          </div>
+        </div>
+
+        <div class="libera__board">
+          <canvas id="lbCanvas"></canvas>
+          <div class="lb-overlay" id="lbOverlay">
+            <h3 id="lbOvTitle">Nivel superado</h3>
+            <p id="lbOvText">…</p>
+            <button class="btn btn--primary" id="lbOvBtn" type="button">Siguiente nivel</button>
+          </div>
+        </div>
+
+        <p class="screen__hint" id="lbHint">Arrastra para trazar un corte.</p>
+        <div class="libera__actions">
+          <button class="btn btn--ghost btn--sm" id="lbReset" type="button">Reiniciar nivel</button>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        Cortar un pan por la mitad cuenta como herido. Se puede igual, pero queda en tu conciencia.
+      </p>
+    </div><!-- /panel libera -->
+
+    <!-- ─── Juego 3 · Tycoon ─── -->
+    <div class="arcade__panel" data-panel="tycoon">
+      <p class="arcade__intro">
+        Empiezas vendiendo un pan a la vez.
+        <span class="muted">Sigue produciendo aunque cierres la pestaña.</span>
+      </p>
+
+      <div class="game tycoon" id="tycoon">
+        <div class="ty-top">
+          <div class="ty-cash">$<span id="tyCash">0</span></div>
+          <div class="ty-rate">
+            <span><b id="tyRate">0</b> $/s</span>
+            <span><b id="tyClick">1</b> por click</span>
+            <span class="muted">Producción <b id="tyMult">×1.00</b></span>
+            <span class="muted">Total <b id="tyTotal">0</b></span>
+          </div>
+        </div>
+
+        <div class="ty-main">
+          <div class="ty-clicker" id="tyClicker" role="button" tabindex="0" aria-label="Vender pan">
+            <svg viewBox="0 0 240 120" aria-hidden="true">
+              <ellipse cx="62"  cy="72" rx="56" ry="42" fill="#c98a3e"/>
+              <ellipse cx="178" cy="72" rx="56" ry="42" fill="#c98a3e"/>
+              <ellipse cx="62"  cy="60" rx="52" ry="36" fill="#e8c088"/>
+              <ellipse cx="178" cy="60" rx="52" ry="36" fill="#e8c088"/>
+              <path d="M120 24 L120 108" stroke="#8a5a24" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+            <span class="ty-clicker__hint">¡Vende!</span>
+            <div class="ty-pops" id="tyPops"></div>
+          </div>
+
+          <div class="ty-side">
+            <div class="ty-shop" id="tyShop"></div>
+            <div class="ty-badu" id="tyBadu"></div>
+          </div>
+        </div>
+
+        <div class="ty-foot">
+          <button class="btn btn--ghost btn--sm" id="tyReset" type="button">Empezar de cero</button>
+        </div>
+      </div>
+    </div><!-- /panel tycoon -->
 
     <p class="disclaimer">
       Ningún pan fue maltratado en la producción de este sitio. Badu Lake sí, un poco.
@@ -367,7 +466,13 @@
   </div>
 </footer>
 
+<!-- Fuera de los paneles: un panel con display:none taparía los avisos aunque sean fixed. -->
+<div class="ty-toasts" id="tyToasts"></div>
+
+<script src="./js/arcade.js"></script>
 <script src="./js/juego.js"></script>
+<script src="./js/libera.js"></script>
+<script src="./js/tycoon.js"></script>
 <script src="./js/main.js"></script>
 </body>
 </html>
